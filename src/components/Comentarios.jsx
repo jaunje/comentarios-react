@@ -29,10 +29,8 @@ function Comentario() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
-    if (texto != "") {
+    if (texto !== "") {
       setTexto("");
-
       setComentarios([...comentarios, { id: uuidv4(), texto, respuestas: [] }]);
     }
   };
@@ -43,15 +41,17 @@ function Comentario() {
         <input value={texto} type="text" onChange={handleInput} />
         <button type="submit">Enviar comentario</button>
       </form>
-      {texto}
       <ul>
-        {comentarios.map((item) => {
-          return (
-            <li key={item.id}>
-              <ItemComentario texto={item.texto} respuestas={item.respuestas} />
-            </li>
-          );
-        })}
+        {comentarios.map((item) => (
+          <li key={item.id}>
+            <ItemComentario
+              texto={item.texto}
+              respuestas={item.respuestas}
+              comentarioId={item.id} // Pasa el ID del comentario
+              setComentarios={setComentarios} // Pasa la función para actualizar comentarios
+            />
+          </li>
+        ))}
       </ul>
     </>
   );
